@@ -9,18 +9,7 @@ const app = express();
 
 app.use(cookieParser());
 
-app.use(
-  cors({
-    // origin: "http://localhost:5173",
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "http://localhost:3100",
-      "https://rental-asset-client.vercel.app",
-    ],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));

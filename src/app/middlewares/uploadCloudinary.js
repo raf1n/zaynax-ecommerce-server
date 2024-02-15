@@ -20,7 +20,7 @@ const storage = new CloudinaryStorage({
     return {
       folder: generateFolder(req, file),
       resource_type: "auto",
-      transformation: [{ width: 500, height: 500, crop: "fit" }],
+      transformation: [{ width: 500, height: 500, crop: "fill" }],
     };
   },
 });
