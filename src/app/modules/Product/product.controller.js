@@ -37,7 +37,9 @@ const createProduct = async (req, res, next) => {
 
 const getActiveProducts = async (req, res, next) => {
   try {
-    const products = await getActiveProductsService();
+    const searchQuery = req.query.search;
+
+    const products = await getActiveProductsService(searchQuery);
     sendResponse(res, {
       statusCode: 200,
       success: true,

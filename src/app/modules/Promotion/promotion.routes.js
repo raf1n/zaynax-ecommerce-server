@@ -12,7 +12,7 @@ router.get("/", PromotionController.getAllPromotions);
 router.get("/:promotionId", PromotionController.getPromotionById);
 
 // Update a promotion by ID
-router.put("/:promotionId", PromotionController.updatePromotionById);
+router.patch("/:promotionId", PromotionController.updatePromotionById);
 
 // Delete a promotion by ID
 router.delete("/:promotionId", PromotionController.deletePromotionById);

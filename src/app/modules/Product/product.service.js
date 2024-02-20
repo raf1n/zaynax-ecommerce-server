@@ -10,8 +10,25 @@ const createProductService = async (payload, imageData) => {
   return result;
 };
 
-const getActiveProductsService = async () => {
-  const products = await Product.find({ status: "active" });
+const getActiveProductsService = async (searchQuery) => {
+  let query = { status: "active" };
+
+  if (searchQuery) {
+    const nameRegex = new RegExp(searchQuery, "i");
+
+    const numericSearchQuery = parseFloat(searchQuery);
+
+    if (!isNaN(numericSearchQuery)) {
+      query.$or = [
+        { price: numericSearchQuery },
+        { discount: numericSearchQuery },
+      ];
+    } else {
+      query.name = nameRegex;
+    }
+  }
+
+  const products = await Product.find(query);
   return products;
 };
 

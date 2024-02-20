@@ -10,7 +10,7 @@ const PromotionSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["active", "deactive"],
-      default: "Deactive",
+      default: "deactive",
     },
   },
   { timestamps: true }

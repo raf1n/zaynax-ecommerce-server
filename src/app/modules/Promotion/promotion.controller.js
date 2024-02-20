@@ -53,6 +53,7 @@ const getPromotionById = async (req, res, next) => {
 const updatePromotionById = async (req, res, next) => {
   try {
     const promotionId = req.params.promotionId;
+
     const updatedPromotion = await PromotionService.updatePromotionById(
       promotionId,
       req.body

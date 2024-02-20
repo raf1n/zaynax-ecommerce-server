@@ -23,12 +23,14 @@ const login = async (req, res, next) => {
     const result = await AuthService.loginService(req.body);
     const { accessToken, user } = result;
 
+    const { password, ...userInfo } = user._doc;
+
     sendResponse(res, {
       statusCode: 200,
       success: true,
       message: "User logged in successfully!",
       data: {
-        user,
+        userInfo,
         accessToken,
       },
     });
@@ -37,7 +39,41 @@ const login = async (req, res, next) => {
   }
 };
 
+const adminRegister = catchAsync(async (req, res, next) => {
+  const result = await AuthService.registerAdminService(req.body);
+  const { accessToken, user } = result;
+
+  sendResponse(res, {
+    statusCode: 201,
+    success: true,
+    message: "Admin registered successfully!",
+    data: {
+      user,
+      accessToken,
+    },
+  });
+});
+
+const adminLogin = catchAsync(async (req, res, next) => {
+  const result = await AuthService.adminLoginService(req.body);
+  const { accessToken, admin } = result;
+
+  const { password, ...user } = admin._doc;
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Admin logged in successfully!",
+    data: {
+      user,
+      accessToken,
+    },
+  });
+});
+
 module.exports = {
   login,
   register,
+  adminLogin,
+  adminRegister,
 };
