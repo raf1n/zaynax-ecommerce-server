@@ -91,6 +91,17 @@ const validatePromotion = async (req, res, next) => {
 
     const promotion = await PromotionService.getPromotionByCode(promoCode);
 
+    // const usageCount = await PromotionService.getPromotionUsageCount(promoCode);
+    // if (usageCount >= promotion.useTime) {
+    //   sendResponse(res, {
+    //     statusCode: 200,
+    //     success: false,
+    //     message: "Promotion has reached its usage limit",
+    //     data: { valid: false },
+    //   });
+    //   return;
+    // }
+
     if (
       promotion &&
       promotion?.status === "active" &&

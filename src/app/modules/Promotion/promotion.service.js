@@ -33,6 +33,38 @@ const getPromotionByCode = async (promoCode) => {
   return promotion;
 };
 
+// const getPromotionUsageCount = async (promoCode) => {
+//   try {
+//     const promotion = await PromotionModel.findOne({ promoCode });
+
+//     if (promotion) {
+//       return promotion.usageCount;
+//     } else {
+//       return 0;
+//     }
+//   } catch (error) {
+//     throw new Error("Error fetching promotion usage count");
+//   }
+// };
+
+// const updatePromotionUsage = async (promoCode) => {
+//   try {
+
+//     const promotion = await PromotionModel.findOne({ promoCode });
+
+//     if (promotion) {
+
+//       promotion.usageCount += 1;
+
+//       await promotion.save();
+//     } else {
+//       throw new Error('Promotion not found');
+//     }
+//   } catch (error) {
+//     throw new Error('Error updating promotion usage count');
+//   }
+// };
+
 module.exports = {
   createPromotion,
   getAllPromotions,

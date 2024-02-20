@@ -12,6 +12,10 @@ const PromotionSchema = new mongoose.Schema(
       enum: ["active", "deactive"],
       default: "deactive",
     },
+    // usageCount: {
+    //   type: Number,
+    //   default: 0, // Default value is 0
+    // },
   },
   { timestamps: true }
 );
