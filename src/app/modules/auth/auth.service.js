@@ -9,7 +9,7 @@ const registerService = async (payload) => {
   try {
     const { phone, password } = payload;
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ phone });
     if (existingUser) {
       throw new ApiError(400, "User already exists");
     }
@@ -25,7 +25,7 @@ const registerService = async (payload) => {
     await newUser.save();
 
     const accessToken = jwtHelpers.createToken(
-      { _id: newUser._id, email: newUser.email },
+      { _id: newUser._id, phone: newUser.phone },
       config.jwt.secret,
       config.jwt.expires_in
     );
@@ -35,15 +35,15 @@ const registerService = async (payload) => {
       accessToken,
     };
   } catch (error) {
-    throw new ApiError(500, "Registration failed", error);
+    throw new ApiError(500, "Registration failed / User Already Exist", error);
   }
 };
 
 const loginService = async (payload) => {
-  const { email, password } = payload;
+  const { phone, password } = payload;
 
   const isExistUser = await User.findOne({
-    email,
+    phone,
   });
 
   if (!isExistUser) {
@@ -61,7 +61,7 @@ const loginService = async (payload) => {
   }
 
   const accessToken = jwtHelpers.createToken(
-    { _id, email, role },
+    { _id, phone, role },
     config.jwt.secret,
     config.jwt.expires_in
   );
@@ -92,7 +92,7 @@ const registerAdminService = async (payload) => {
     await newAdmin.save();
 
     const accessToken = jwtHelpers.createToken(
-      { _id: newAdmin._id, email: newAdmin.email },
+      { _id: newAdmin._id, userId: newAdmin.user_id },
       config.jwt.secret,
       config.jwt.expires_in
     );
@@ -102,7 +102,7 @@ const registerAdminService = async (payload) => {
       accessToken,
     };
   } catch (error) {
-    throw new ApiError(500, "Registration failed", error);
+    throw new ApiError(500, "Registration failed / User Already Exist", error);
   }
 };
 
@@ -123,7 +123,7 @@ const adminLoginService = async (payload) => {
   }
 
   const accessToken = jwtHelpers.createToken(
-    { _id: admin._id, email: admin.email, role: admin.role },
+    { _id: admin._id, userId: admin.user_id },
     config.jwt.secret,
     config.jwt.expires_in
   );

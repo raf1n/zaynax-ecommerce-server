@@ -28,10 +28,16 @@ const deletePromotionById = async (promotionId) => {
   await Promotion.findByIdAndDelete(promotionId);
 };
 
+const getPromotionByCode = async (promoCode) => {
+  const promotion = await Promotion.findOne({ promoCode });
+  return promotion;
+};
+
 module.exports = {
   createPromotion,
   getAllPromotions,
   getPromotionById,
   updatePromotionById,
   deletePromotionById,
+  getPromotionByCode,
 };

@@ -9,16 +9,16 @@ const userSchema = new mongoose.Schema(
       type: String,
       length: [11, "Phone number must be 11 digits"],
       required: true,
-      unique: true,
+      // unique: true,
     },
     password: {
       type: String,
       required: true,
     },
-    role: {
-      type: String,
-      default: "user",
-    },
+    // role: {
+    //   type: String,
+    //   default: "user",
+    // },
   },
   { timestamps: true, versionKey: false }
 );

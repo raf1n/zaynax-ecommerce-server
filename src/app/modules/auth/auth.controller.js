@@ -5,14 +5,17 @@ const AuthService = require("./auth.service");
 
 const register = catchAsync(async (req, res, next) => {
   const result = await AuthService.registerService(req.body);
+
   const { accessToken, user } = result;
+
+  const { password, ...userInfo } = user._doc;
 
   sendResponse(res, {
     statusCode: 201,
     success: true,
     message: "User registered successfully!",
     data: {
-      user,
+      user: userInfo,
       accessToken,
     },
   });

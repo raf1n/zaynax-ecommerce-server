@@ -17,7 +17,8 @@ const createOrder = async (req, res, next) => {
 
 const getAllOrders = async (req, res, next) => {
   try {
-    const orders = await OrderService.getAllOrders();
+    const status = req.query.status;
+    const orders = await OrderService.getAllOrders(status);
     sendResponse(res, {
       statusCode: 200,
       success: true,

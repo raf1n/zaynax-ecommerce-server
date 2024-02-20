@@ -5,6 +5,9 @@ const PromotionController = require("./promotion.controller");
 // Create a new promotion
 router.post("/", PromotionController.createPromotion);
 
+// Validate a promotion
+router.post("/validate", PromotionController.validatePromotion);
+
 // Get all promotions
 router.get("/", PromotionController.getAllPromotions);
 

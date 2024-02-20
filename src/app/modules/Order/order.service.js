@@ -5,9 +5,14 @@ const createOrder = async (orderData) => {
   return order;
 };
 
-const getAllOrders = async () => {
-  const orders = await Order.find();
-  return orders;
+const getAllOrders = async (status) => {
+  if (status === "all") {
+    const orders = await Order.find();
+    return orders;
+  } else {
+    const orders = await Order.find({ status });
+    return orders;
+  }
 };
 
 const getOrderById = async (orderId) => {

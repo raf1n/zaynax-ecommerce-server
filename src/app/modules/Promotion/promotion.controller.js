@@ -1,5 +1,6 @@
 const PromotionService = require("./promotion.service");
 const sendResponse = require("../../../shared/sendResponse");
+const isWithinDateRange = require("../../../utils/withinDateRange");
 
 const createPromotion = async (req, res, next) => {
   try {
@@ -84,10 +85,48 @@ const deletePromotionById = async (req, res, next) => {
   }
 };
 
+const validatePromotion = async (req, res, next) => {
+  try {
+    const { promoCode } = req.body;
+
+    const promotion = await PromotionService.getPromotionByCode(promoCode);
+
+    if (
+      promotion &&
+      promotion?.status === "active" &&
+      isWithinDateRange(promotion.startDate, promotion.endDate)
+    ) {
+      sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Valid Promo Code",
+        data: { valid: true, promotion },
+      });
+    } else if (promotion) {
+      sendResponse(res, {
+        statusCode: 200,
+        success: false,
+        message: "Invalid promotion code or expired",
+        data: { valid: false },
+      });
+    } else {
+      sendResponse(res, {
+        statusCode: 200,
+        success: false,
+        message: "Promotion code not found",
+        data: { valid: false },
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createPromotion,
   getAllPromotions,
   getPromotionById,
   updatePromotionById,
   deletePromotionById,
+  validatePromotion,
 };
